@@ -1,0 +1,28 @@
+.recovery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.recovery-word input,
+.visible-word {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #7cf03d;
+  background: transparent;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.visible-word {
+  background-color: #333;
+  border: 1px dashed #7cf03d;
+}
+
+.recovery-word input:focus {
+  outline: none;
+  border: 2px solid #a6f56f;
+}

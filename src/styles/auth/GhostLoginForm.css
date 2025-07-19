@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.ghost-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1c1c1e, #2d2d2f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ghost-box {
+  background: rgba(45, 45, 47, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(124, 240, 61, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
+  text-align: center;
+}
+
+.ghost-box h2 {
+  color: #7cf03d;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.ghost-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ghost-box input {
+  padding: 12px 15px;
+  background: transparent;
+  border: 1px solid #7cf03d;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.ghost-box input::placeholder {
+  color: #94a3b8;
+}
+
+.ghost-box input:focus {
+  outline: none;
+  border-color: #a3f07c;
+  box-shadow: 0 0 10px rgba(124, 240, 61, 0.3);
+}
+
+.ghost-btn {
+  padding: 12px;
+  background: #7cf03d;
+  color: #2d2d2f;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.ghost-btn:hover {
+  background: transparent;
+  color: #7cf03d;
+  border: 1px solid #7cf03d;
+}
+
+.back-link {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+.back-link a {
+  color: #7cf03d;
+  text-decoration: none;
+}
+
+.back-link a:hover {
+  text-decoration: none;
+    color: #94a3b8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

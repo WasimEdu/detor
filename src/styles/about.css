@@ -1,0 +1,119 @@
+.welcome {
+  padding: 4rem 1.5rem;
+  background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+  color: #e5e5e5;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.75;
+}
+
+.welcome section {
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(124, 240, 61, 0.1);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  border-radius: 20px;
+  margin: 2rem auto;
+  box-shadow: 0 0 15px rgba(124, 240, 61, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.welcome section:hover {
+  transform: scale(1.01);
+}
+
+.welcome h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  text-align: center;
+  color: #7cf03d;
+  margin-bottom: 1rem;
+}
+
+.welcome h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+}
+
+.welcome h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #7cf03d;
+  margin: 0.75rem auto 0;
+  border-radius: 9999px;
+}
+
+.welcome p {
+  font-size: 1.145rem;
+  color: #cccccc;
+  margin: 0.75rem 0;
+  text-align: center;
+}
+
+.welcome ul {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.welcome li {
+  font-size: 1.05rem;
+  color: #cccccc;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.github-link {
+  display: block;
+  font-weight: 600;
+  color: #7cf03d;
+  text-decoration: none;
+  margin: 1rem auto 0;
+  text-align: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+  color: #afff72;
+}
+
+.about-footer {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #9ca3af;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid #2d2d2d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .welcome h1 {
+    font-size: 2.2rem;
+  }
+
+  .welcome h2 {
+    font-size: 1.5rem;
+  }
+
+  .welcome p,
+  .welcome li {
+    font-size: 1rem;
+  }
+
+  .welcome {
+    padding: 3rem 1rem;
+  }
+
+  .welcome section {
+    padding: 1.5rem;
+  }
+}
