@@ -3,70 +3,47 @@ import "../../styles/Auth/RecoverForm.css";
 import { Link } from "react-router-dom";
 
 const RecoveryForm = () => {
-  // Simulated saved recovery phrase
-  const fullPhrase = ["owl", "green", "planet", "river", "cloud", "jump", "signal", "trust"];
-
-  // Create hidden word indexes
-  const [hiddenIndexes, setHiddenIndexes] = useState([]);
-  const [userInputs, setUserInputs] = useState({});
-
-  useEffect(() => {
-    const shuffled = [...Array(8).keys()].sort(() => 0.5 - Math.random());
-    setHiddenIndexes(shuffled.slice(0, 4));
-  }, []);
+  const [phrase, setPhrase] = useState(Array(8).fill(""));
 
   const handleChange = (index, value) => {
-    setUserInputs((prev) => ({ ...prev, [index]: value }));
+    const updated = [...phrase];
+    updated[index] = value.trim().toLowerCase();
+    setPhrase(updated);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Build final guess from user inputs + visible words
-    const guessPhrase = fullPhrase.map((word, i) =>
-      hiddenIndexes.includes(i) ? userInputs[i]?.trim().toLowerCase() : word
-    );
-
-    const isMatch = guessPhrase.join(" ") === fullPhrase.join(" ");
-
-    if (isMatch) {
-      alert("✅ Identity Verified! Proceed to reset password.");
-      // navigate to password reset or show form
-    } else {
-      alert("❌ Recovery phrase mismatch. Please try again.");
-    }
+    const joined = phrase.join(" ");
+    console.log("Submitted Recovery Phrase:", joined);
+    // Send `joined` to backend for verification
+    alert("Recovery phrase submitted. (Demo)");
   };
 
   return (
-    <div className="recovery-container">
-      <div className="recovery-box">
+    <div className="recovery-wrapper">
+      <div className="recovery-glass">
         <form onSubmit={handleSubmit}>
-          <h1>Recover Account</h1>
-          <p>Fill in the missing words from your 8-word recovery phrase.</p>
+          <h2 className="recovery-title">Recover Account</h2>
+          <p className="recovery-subtext">Enter your 8-word recovery phrase to continue</p>
 
           <div className="recovery-grid">
-            {fullPhrase.map((word, index) => (
-              <div className="recovery-word" key={index}>
-                {hiddenIndexes.includes(index) ? (
-                  <input
-                    type="text"
-                    placeholder={`Word ${index + 1}`}
-                    value={userInputs[index] || ""}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    required
-                  />
-                ) : (
-                  <span className="visible-word">{word}</span>
-                )}
-              </div>
+            {phrase.map((word, index) => (
+              <input
+                key={index}
+                type="text"
+                placeholder={`Word ${index + 1}`}
+                value={word}
+                onChange={(e) => handleChange(index, e.target.value)}
+                required
+              />
             ))}
           </div>
 
-          <button type="submit" className="btn">Verify</button>
+          <button type="submit" className="btn-recovery">Verify</button>
 
-          <div className="back-link">
+          <p className="recovery-footer">
             <Link to="/login">← Back to Login</Link>
-          </div>
+          </p>
         </form>
       </div>
     </div>

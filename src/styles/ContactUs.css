@@ -111,3 +111,37 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .contact-container {
+    width: 90%;
+    padding: 2rem 1rem;
+  }
+
+  .contact-container h2 {
+    font-size: 2rem;
+  }
+
+  .contact-subtext {
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+  }
+
+  .contact-form button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .contact-alt {
+    font-size: 0.85rem;
+  }
+}
