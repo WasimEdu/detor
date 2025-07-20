@@ -1,6 +1,6 @@
 import React from 'react';
-import Hero from '../components/Hero';
-import WhyUs from '../components/WhyUs';
+import Hero from '@/components/home/Hero';
+import WhyUs from '@/components/home/WhyUs';
 // import Footer from '../components/Footer';
 
 const LandingPage = () => {

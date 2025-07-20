@@ -1,8 +1,8 @@
 import React from "react";
-import "../styles/WhyUs.css";
-import privacyIcon from "../assets/icons/privacy.svg";
-import fastIcon from "../assets/icons/fast.svg";
-import openSourceIcon from "../assets/icons/open-source.png";
+import "@/styles/home/WhyUs.css";
+import privacyIcon from "@/assets/icons/privacy.svg";
+import fastIcon from "@/assets/icons/fast.svg";
+import openSourceIcon from "@/assets/icons/open-source.png";
 
 const WhyUs = () => {
   const features = [

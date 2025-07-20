@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; // ✅ Import Link
-import "../styles/Hero.css";
+import "@/styles/home/Hero.css";
 import { FaGithub } from "react-icons/fa";
 
 

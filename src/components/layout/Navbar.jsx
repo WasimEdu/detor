@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Navbar.css";
+import "@/styles/layout/Navbar.css";
 import { MdOutlineLogin } from "react-icons/md";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 

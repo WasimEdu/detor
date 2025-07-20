@@ -1,14 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import LandingPage from "./pages/LandingPage";
-import AboutPage from "./pages/aboutpage";
-import Footer from './components/Footer';
-import ContactUs from "./pages/ContactUs";
-import LoginPage from "./pages/auth/LoginPage";
-import RegisterPage from './pages/auth/RegisterPage';
-import GhostLoginPage from "./pages/auth/GhostLoginPage";
-import RecoverPage from "./pages/auth/RecoverPage";
+import Navbar from "@/components/layout/Navbar";
+import Footer from '@/components/layout/Footer';
+
+import LandingPage from "@/pages/LandingPage";
+import AboutPage from "@/pages/AboutPage";
+import ContactUs from "@/pages/ContactPage";
+
+import LoginPage from "@/pages/auth/LoginPage";
+import RegisterPage from '@/pages/auth/RegisterPage';
+import GhostLoginPage from "@/pages/auth/GhostLoginPage";
+import RecoverPage from "@/pages/auth/RecoverPage";
 
 const App = () => {
   return (
