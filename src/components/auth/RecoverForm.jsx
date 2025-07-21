@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import "@/styles/Auth/RecoverForm.css";
+import "@/styles/auth/RecoverForm.css";
 import { Link } from "react-router-dom";
 
 // Simulated full 8-word seed (backend should handle this in real case)
-const fullSeed = ["apple", "raven", "light", "glass", "code", "zone", "orbit", "lava"];
+  const fullSeed = [
+    "apple", "raven", "light", "glass",
+    "code", "zone", "orbit", "lava",
+    "mind", "drum", "echo", "solar"
+  ];
 
-const RecoveryForm = () => {
+  const RecoveryForm = () => {
   const [step, setStep] = useState(1);
   const [username, setUsername] = useState("");
-  const [seedState, setSeedState] = useState(Array(8).fill(""));
+  const [seedState, setSeedState] = useState(Array(12).fill(""));
   const [prefilledIndexes, setPrefilledIndexes] = useState([]);
   const [error, setError] = useState("");
 
@@ -22,8 +26,8 @@ const RecoveryForm = () => {
     if (isValid) {
       // Randomly pick 4 unique indexes
       const indices = [];
-      while (indices.length < 4) {
-        const r = Math.floor(Math.random() * 8);
+      while (indices.length < 6) {
+        const r = Math.floor(Math.random() * 12);
         if (!indices.includes(r)) indices.push(r);
       }
 
@@ -39,7 +43,7 @@ const RecoveryForm = () => {
     }
   };
 
-  const handleWordChange = (index, value) => {
+    const handleWordChange = (index, value) => {
     const updated = [...seedState];
     updated[index] = value.trim().toLowerCase();
     setSeedState(updated);

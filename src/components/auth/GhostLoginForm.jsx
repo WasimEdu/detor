@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/Auth/GhostLoginForm.css";
+import "@/styles/auth/GhostLoginForm.css";
 import { Link } from "react-router-dom";
 
 const GhostLoginForm = () => {

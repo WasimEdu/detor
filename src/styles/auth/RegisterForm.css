@@ -1,4 +1,4 @@
-/* Reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -14,6 +14,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  
 }
 
 .register-box {
@@ -33,6 +34,13 @@
   color: #7cf03d;
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
+}
+
+.register-box p {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .register-box form {
@@ -78,6 +86,24 @@
   border: 2px solid #7cf03d;
 }
 
+.go-login-btn{
+  padding: 12px;
+  background: #7cf03d;
+  color: #2d2d2f;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.5s ease;
+  margin-left: 7rem;
+}
+
+.go-login-btn:hover {
+  background: transparent;
+  color: #7cf03d;
+  border: 2px solid #7cf03d;
+}
+
 .login-link {
   text-align: center;
   margin-top: 1rem;
@@ -93,6 +119,36 @@
 .login-link a:hover {
   text-decoration: none;
   color: #94a3b8;
+}
+
+.seed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  background: #0f0f0f;
+  padding: 16px;
+  border: 1px solid #7cf03d;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.seed-word {
+  background: #1a1a1a;
+  border: 1px solid #7cf03d;
+  color: #94a3b8;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .go-login-btn {
+    margin-left: 2rem;
+    /* width: 100%; */
+    text-align: center;
+  }
 }
 
 @keyframes fadeIn {

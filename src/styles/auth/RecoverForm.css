@@ -32,7 +32,7 @@
 .recovery-subtext {
   text-align: center;
   font-size: 0.95rem;
-  color: #aaa;
+  color: #94a3b8;
   margin-bottom: 2rem;
 }
 
@@ -136,7 +136,7 @@
 /* Responsive */
 @media  (max-width: 768px) {
   .recovery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .next-btn {

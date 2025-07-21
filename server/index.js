@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('Server running'));
+app.use('/api', authRoutes); // proxy target
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(3000, () => {
+  console.log('🚀 Server listening on http://localhost:3000');
+});
