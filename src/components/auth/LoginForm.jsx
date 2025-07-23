@@ -19,7 +19,7 @@ async function decryptVault(encryptedVault, password, salt, iv) {
   const aesKey = await crypto.subtle.deriveKey(
     {
       name: "PBKDF2",
-      salt: Uint8Array.from(atob(salt), c => c.charCodeAt(0)),
+      salt: Uint8Array.from(atob(salt), (c) => c.charCodeAt(0)),
       iterations: 100000,
       hash: "SHA-256",
     },
@@ -33,13 +33,13 @@ async function decryptVault(encryptedVault, password, salt, iv) {
   const decrypted = await crypto.subtle.decrypt(
     {
       name: "AES-GCM",
-      iv: Uint8Array.from(atob(iv), c => c.charCodeAt(0)),
+      iv: Uint8Array.from(atob(iv), (c) => c.charCodeAt(0)),
     },
     aesKey,
-    Uint8Array.from(atob(encryptedVault), c => c.charCodeAt(0))
+    Uint8Array.from(atob(encryptedVault), (c) => c.charCodeAt(0))
   );
 
-  return decrypted; // ArrayBuffer (private key bytes)
+  return decrypted; // ArrayBuffer
 }
 
 const LoginForm = () => {
@@ -71,11 +71,20 @@ const LoginForm = () => {
 
       // 2. Decrypt private key from vault
       const decryptedKey = await decryptVault(vault, password, salt, iv);
-      console.log("✅ Decrypted Private Key:", new Uint8Array(decryptedKey));
+      const privateKeyArray = Array.from(new Uint8Array(decryptedKey));
+      console.log("✅ Decrypted Private Key:", privateKeyArray);
+
+      // 3. Store in sessionStorage
+      sessionStorage.setItem(
+        "auth",
+        JSON.stringify({
+          username,
+          publicKey,
+          privateKey: privateKeyArray,
+        })
+      );
 
       alert("Login successful (private key loaded in memory)");
-
-      // Optional: store in state or context here
     } catch (err) {
       console.error("Login error:", err);
       alert("Something went wrong during login.");
