@@ -2,6 +2,46 @@ import React, { useState } from "react";
 import "@/styles/auth/LoginForm.css";
 import { Link } from "react-router-dom";
 
+// Utility: decrypt vault using password
+async function decryptVault(encryptedVault, password, salt, iv) {
+  const encoder = new TextEncoder();
+
+  // 1. Import password key
+  const pwKey = await crypto.subtle.importKey(
+    "raw",
+    encoder.encode(password),
+    { name: "PBKDF2" },
+    false,
+    ["deriveKey"]
+  );
+
+  // 2. Derive AES key from password + salt
+  const aesKey = await crypto.subtle.deriveKey(
+    {
+      name: "PBKDF2",
+      salt: Uint8Array.from(atob(salt), c => c.charCodeAt(0)),
+      iterations: 100000,
+      hash: "SHA-256",
+    },
+    pwKey,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["decrypt"]
+  );
+
+  // 3. Decrypt vault
+  const decrypted = await crypto.subtle.decrypt(
+    {
+      name: "AES-GCM",
+      iv: Uint8Array.from(atob(iv), c => c.charCodeAt(0)),
+    },
+    aesKey,
+    Uint8Array.from(atob(encryptedVault), c => c.charCodeAt(0))
+  );
+
+  return decrypted; // ArrayBuffer (private key bytes)
+}
+
 const LoginForm = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
 
@@ -9,10 +49,37 @@ const LoginForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login credentials:", formData);
-    // TODO: backend auth
+    const { username, password } = formData;
+
+    try {
+      // 1. Fetch vault data from backend
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        alert(data.message || "Login failed.");
+        return;
+      }
+
+      const { vault, salt, iv, publicKey } = await res.json();
+
+      // 2. Decrypt private key from vault
+      const decryptedKey = await decryptVault(vault, password, salt, iv);
+      console.log("✅ Decrypted Private Key:", new Uint8Array(decryptedKey));
+
+      alert("Login successful (private key loaded in memory)");
+
+      // Optional: store in state or context here
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Something went wrong during login.");
+    }
   };
 
   return (

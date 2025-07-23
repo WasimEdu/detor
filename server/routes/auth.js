@@ -1,3 +1,11 @@
+// server/routes/auth.js
+
+const express = require('express');
+const router = express.Router();
+
+const users = new Map(); // In-memory store (not persisted)
+
+// POST /api/register
 router.post('/register', (req, res) => {
   console.log('👉 Incoming POST /register');
   console.log('🧾 Request body:', req.body);
@@ -20,3 +28,21 @@ router.post('/register', (req, res) => {
 
   return res.status(201).json({ message: 'User registered successfully' });
 });
+
+// POST /api/login
+router.post('/login', (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ message: 'Username is required' });
+  }
+
+  if (!users.has(username)) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  const userData = users.get(username);
+  return res.status(200).json(userData); // includes vault, salt, iv, publicKey
+});
+
+module.exports = router;
