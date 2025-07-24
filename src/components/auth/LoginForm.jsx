@@ -1,49 +1,14 @@
+// src/components/LoginForm.jsx
+
 import React, { useState } from "react";
 import "@/styles/auth/LoginForm.css";
 import { Link } from "react-router-dom";
-
-// Utility: decrypt vault using password
-async function decryptVault(encryptedVault, password, salt, iv) {
-  const encoder = new TextEncoder();
-
-  // 1. Import password key
-  const pwKey = await crypto.subtle.importKey(
-    "raw",
-    encoder.encode(password),
-    { name: "PBKDF2" },
-    false,
-    ["deriveKey"]
-  );
-
-  // 2. Derive AES key from password + salt
-  const aesKey = await crypto.subtle.deriveKey(
-    {
-      name: "PBKDF2",
-      salt: Uint8Array.from(atob(salt), (c) => c.charCodeAt(0)),
-      iterations: 100000,
-      hash: "SHA-256",
-    },
-    pwKey,
-    { name: "AES-GCM", length: 256 },
-    false,
-    ["decrypt"]
-  );
-
-  // 3. Decrypt vault
-  const decrypted = await crypto.subtle.decrypt(
-    {
-      name: "AES-GCM",
-      iv: Uint8Array.from(atob(iv), (c) => c.charCodeAt(0)),
-    },
-    aesKey,
-    Uint8Array.from(atob(encryptedVault), (c) => c.charCodeAt(0))
-  );
-
-  return decrypted; // ArrayBuffer
-}
+import { decryptVault } from "@/crypto/decryptVault";
+import { useAuth } from "@/hooks/useAuth"; // use your custom hook
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
+  const { auth, setAuth } = useAuth(); // grab both auth & setter from context
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -69,22 +34,16 @@ const LoginForm = () => {
 
       const { vault, salt, iv, publicKey } = await res.json();
 
-      // 2. Decrypt private key from vault
-      const decryptedKey = await decryptVault(vault, password, salt, iv);
-      const privateKeyArray = Array.from(new Uint8Array(decryptedKey));
-      console.log("✅ Decrypted Private Key:", privateKeyArray);
+      // 2. Decrypt private key
+      const decryptedKeyBuffer = await decryptVault(vault, password, salt, iv);
 
-      // 3. Store in sessionStorage
-      sessionStorage.setItem(
-        "auth",
-        JSON.stringify({
-          username,
-          publicKey,
-          privateKey: privateKeyArray,
-        })
-      );
+      // 3. Convert ArrayBuffer to Uint8Array
+      const privateKey = new Uint8Array(decryptedKeyBuffer);
 
-      alert("Login successful (private key loaded in memory)");
+      // 4. Store in memory using useAuth context
+      setAuth({ username, publicKey, privateKey });
+
+      alert("✅ Login successful (private key in memory only)");
     } catch (err) {
       console.error("Login error:", err);
       alert("Something went wrong during login.");
@@ -140,6 +99,12 @@ const LoginForm = () => {
             <p className="account-text">
               Don't have an account? <Link to="/register">Sign up</Link>
             </p>
+
+            {auth?.privateKey && (
+              <p className="account-text">
+                ✅ Logged in! <Link to="/sign-test">Test Sign Message</Link>
+              </p>
+            )}
           </form>
         </div>
       </div>
